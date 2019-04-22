@@ -37,8 +37,10 @@ class PlayerStats extends Component {
         }).then(data => {
             //this.setState({hands : hands}) // Update variables of PlayerList
             let hands = data.results.map((hand) => { // Convert the json in array
+                let card1 = hand.Hand[0]+hand.Hand[1]
+                let card2 = hand.Hand[0]+hand.Hand[1]
                 return (
-                    hand.Hand
+                    card1
                 )
             })
             this.setState({hands : hands}) // Update variables of PlayerList 
