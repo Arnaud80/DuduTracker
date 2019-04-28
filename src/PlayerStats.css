@@ -1,0 +1,49 @@
+.playerStats {
+  display: flex;
+  flex-wrap: wrap;
+  width: 600px;
+  margin: auto;
+  user-select: none;
+}
+
+.playerStats > .hand {
+  font-size: 2em;
+  flex: 1 1 calc(100% / 13 - 0.4em);
+  outline: 0.08em solid silver;
+  color: blueviolet;
+  width: calc(100% - 0.4em);
+  margin: 0.2em;
+  text-align: center;
+  font-family: Menlo, Monaco, Consolas, Inconsolata, 'Courier New', monospace;
+}   
+
+.playerStats > .rangeHand {
+  flex: 1 1 calc(100% / 13 - 0.4em);
+  outline: 0.08em solid silver;
+  color: blue;
+  width: calc(100% - 0.4em);
+  margin: 0.2em;
+  text-align: center;
+  font-family: Menlo, Monaco, Consolas, Inconsolata, 'Courier New', monospace;
+}
+
+.playerStats > .SelectedUser {
+  font-size: 2em;
+  flex: 1 1 1;
+  color: blueviolet;
+  width: calc(100% - 0.4em);
+  margin: 0.2em;
+  text-align: center;
+  font-family: Menlo, Monaco, Consolas, Inconsolata, 'Courier New', monospace;
+}
+
+.playerStats > .KnowedHands {
+  font-size: 1em;
+  font-style: italic;
+  flex: 1 1 1;
+  color: black;
+  width: calc(100% - 0.4em);
+  margin: 0.2em;
+  text-align: center;
+  font-family: Menlo, Monaco, Consolas, Inconsolata, 'Courier New', monospace;
+}
