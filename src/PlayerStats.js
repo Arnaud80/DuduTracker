@@ -9,6 +9,7 @@ class PlayerStats extends Component {
         this.state = {
             onClick: props.onClick,
             range: config.Constants.range,
+            rangeCards: config.Constants.rangeCards,
         }
     }
 
@@ -33,7 +34,8 @@ class PlayerStats extends Component {
     }
 
     fetchPlayerHands() {
-        let range = {
+        //let range = config.Constants.range; // Why the constant is modifed ?
+        let range = { // I don't use the config constat because the constant is modified
         'AA':0, 'AKs':0, 'AQs':0, 'AJs':0, 'ATs':0, 'A9s':0, 'A8s':0, 'A7s':0, 'A6s':0, 'A5s':0, 'A4s':0, 'A3s':0, 'A2s':0,
         'AKo':0, 'KK':0, 'KQs':0, 'KJs':0, 'KTs':0, 'K9s':0, 'K8s':0, 'K7s':0, 'K6s':0, 'K5s':0, 'K4s':0, 'K3s':0, 'K2s':0,
         'AQo':0, 'KQo':0, 'QQ':0, 'QJs':0, 'QTs':0, 'Q9s':0, 'Q8s':0, 'Q7s':0, 'Q6s':0, 'Q5s':0, 'Q4s':0, 'Q3s':0, 'Q2s':0,
@@ -47,10 +49,11 @@ class PlayerStats extends Component {
         'A4o':0, 'K4o':0, 'Q4o':0, 'J4o':0, 'T4o':0, '94o':0, '84o':0, '74o':0, '64o':0, '54o':0, '44':0, '43s':0, '42s':0,
         'A3o':0, 'K3o':0, 'Q3o':0, 'J3o':0, 'T3o':0, '93o':0, '83o':0, '73o':0, '63o':0, '53o':0, '43o':0, '33':0, '32s':0,
         'A2o':0, 'K2o':0, 'Q2o':0, 'J2o':0, 'T2o':0, '92o':0, '82o':0, '72o':0, '62o':0, '52o':0, '42o':0, '32o':0, '22':0
-    }
+        };
 
         fetch(config.DuduTrackerAPI_PlayerHands.url + '/' + this.props.playerName) // Call API function to retreive list of players
         .then(results => {
+            console.log('result' + results)
             return results.json(); // Transform the data into json
         }).then(data => {
             let hands = data.results.map((hand) => { // Convert the json in array
@@ -90,7 +93,6 @@ class PlayerStats extends Component {
     getRangePercentValue(value) {
         let total=this.getTotalRangeHand()
         if(total!==0) {
-            console.log(value/total)
             return(value/total)
         } else return(0)
     }
@@ -123,16 +125,15 @@ class PlayerStats extends Component {
         //color.r + Math.round(this.getRangePercentValue(value)*256).toString(16) + Math.round(this.getRangePercentValue(value)*256).toString(16),
         return(
             {
-                'background-color': this.getColorForPercentage(this.getRangePercentValue(value)) 
+                'backgroundColor': this.getColorForPercentage(this.getRangePercentValue(value)) 
             }
         )
     }
 
     render() {
-        const { hands, range } = this.state
+        const { hands, range, rangeCards } = this.state
         console.log("Render PlayerStats")
-        console.log(range);
-
+        
         return (
             // Check if hands is populed and display result if yes 
             <div className='playerStats' onClick={() => this.onClick()}>
@@ -140,8 +141,8 @@ class PlayerStats extends Component {
                 <div className='KnowedHands'>Know hands : 
                     {hands ? hands.length : '-'}
                 </div>
-                {   Object.entries(range).map((hand, index) => (
-                    <div className='rangeHand' style={this.getBackgroundStyle(hand[1])} key={index} value={hand[1]}>{hand[0]}</div>
+                {   Object.entries(rangeCards).map((card, index) => (
+                    <div className='rangeHand' style={this.getBackgroundStyle(range[rangeCards[index]])} key={index} title={range[rangeCards[index]]}>{rangeCards[index]}</div>
                 ))
                 }
             </div>
