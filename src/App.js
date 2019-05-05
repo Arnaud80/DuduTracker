@@ -9,7 +9,7 @@ import socketIOClient from "socket.io-client";
 class App extends Component {
   state = {
     playerName: '-',
-    range: config.Constants.defaultRange,
+    range: config.Constants.range,
     rangeCards: config.Constants.rangeCards,
     hands : [],
   }
