@@ -10,6 +10,9 @@ const config = {
  DuduTrackerAPI_LastGame: {
    url: 'http://localhost:8080/lastGame'
  },
+ DuduTrackerAPI_Socket: {
+   url: 'http://localhost:8081'
+ },
  Constants: {
     range: {
         'AA':0, 'AKs':0, 'AQs':0, 'AJs':0, 'ATs':0, 'A9s':0, 'A8s':0, 'A7s':0, 'A6s':0, 'A5s':0, 'A4s':0, 'A3s':0, 'A2s':0,
@@ -45,6 +48,7 @@ const config = {
 }}
 
 module.exports = config
+
 /*
 range: {
         'AA':0, 'AKs':0, 'AQs':0, 'AJs':0, 'ATs':0, 'A9s':0, 'A8s':0, 'A7s':0, 'A6s':0, 'A5s':0, 'A4s':0, 'A3s':0, 'A2s':0,
