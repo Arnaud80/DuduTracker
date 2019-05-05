@@ -82,7 +82,7 @@ class App extends Component {
 
     componentDidMount() {
         // Listen the socketIO messages sent from the API. 
-        const socket = socketIOClient(config.Constants.DuduTrackerAPI_Socket);
+        const socket = socketIOClient(config.DuduTrackerAPI_Socket.url);
         socket.on('message', () => {
             this.fetchPlayerHands(this.state.playerName);
         })
