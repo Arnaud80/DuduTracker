@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import './PlayerStats.css'
+import ReactDOM from 'react-dom';
+import socketIOClient from "socket.io-client";
 
 const config = require('./config');
 
@@ -8,8 +10,9 @@ class PlayerStats extends Component {
         super();
         this.state = {
             onClick: props.onClick,
-            range: config.Constants.range,
+            range: "", //config.Constants.range,
             rangeCards: config.Constants.rangeCards,
+            apiupdate: false,
         }
     }
 
@@ -33,7 +36,7 @@ class PlayerStats extends Component {
         }
     }
 
-    fetchPlayerHands() {
+    fetchPlayerHands = () => {
         //let range = config.Constants.range; // Why the constant is modifed ?
         let range = { // I don't use the config constat because the constant is modified
         'AA':0, 'AKs':0, 'AQs':0, 'AJs':0, 'ATs':0, 'A9s':0, 'A8s':0, 'A7s':0, 'A6s':0, 'A5s':0, 'A4s':0, 'A3s':0, 'A2s':0,
@@ -53,7 +56,6 @@ class PlayerStats extends Component {
 
         fetch(config.DuduTrackerAPI_PlayerHands.url + '/' + this.props.playerName) // Call API function to retreive list of players
         .then(results => {
-            console.log('result' + results)
             return results.json(); // Transform the data into json
         }).then(data => {
             let hands = data.results.map((hand) => { // Convert the json in array
@@ -64,18 +66,45 @@ class PlayerStats extends Component {
                 range[rangeHand]=range[rangeHand]+1 // Increment the hand of the range
                 return(rangeHand)
             })
-            this.setState({hands : hands, range : range}) // Update variables of PlayerList 
+            this.setState({hands : hands, range : range}) // Update variables of PlayerList
         })
-        .catch(function(error) {
+        .catch(error => {
+            this.setState({hands : [], range : range}) // Update variables of PlayerList
             console.log('There is a problem with fetch operation : ' + error.message);
         })
     }
 
+    handleAPIevent = (event) => {
+        console.log("handleAPIevent : ", event);
+        console.log("this props : ", this.props);
+        this.fetchPlayerHands();
+    }
+
+    componentDidMount() {
+        //this.nv.addEventListener("apievent", this.handleAPIevent);
+        //var obj=document.getElementById("root");
+        //obj.addEventListener('apievent', this.handleAPIevent);
+        //ReactDOM.findDOMNode(this).addEventListener('apievent', function (){alert('coucou')});
+
+        const socket = socketIOClient('http://localhost:8081');
+        //setInterval(this.send(), 1000)
+        socket.on('message', () => {
+            this.fetchPlayerHands();
+        })
+    }
+
+    componentWillUnmount() {
+        //this.nv.removeEventListener("apievent", this.handleAPIevent);
+        //var obj=document.getElementById("root");
+        //obj.addEventListener('apievent', this.handleAPIevent);
+        //ReactDOM.findDOMNode(this).removeEventListener('apievent', function (){alert('coucou')})
+    }
+
     componentDidUpdate(prevProps) {
-        console.log("Players Stats componentDidUpdate")
+        /*console.log("Players Stats componentDidUpdate")
         if(this.props.playerName!==prevProps.playerName) {
             this.fetchPlayerHands();
-        }
+        }*/
     }
 
     onClick() {
@@ -136,6 +165,7 @@ class PlayerStats extends Component {
         
         return (
             // Check if hands is populed and display result if yes 
+            //<div ref={elem => this.nv = elem} className='playerStats' onClick={() => this.onClick()} onAPIupdate={this.props.onAPIupdate}></div>
             <div className='playerStats' onClick={() => this.onClick()}>
                 <div className='SelectedUser'>Stats of : {this.props.playerName}</div>
                 <div className='KnowedHands'>Know hands : 

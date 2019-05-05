@@ -1,27 +1,25 @@
 .playerStats {
   display: flex;
   flex-wrap: wrap;
-  width: 600px;
   margin: auto;
   user-select: none;
+  justify-content: center;
+  align-items: center;
 }
 
 .playerStats > .hand {
   font-size: 2em;
-  flex: 1 1 calc(100% / 13 - 0.4em);
   outline: 0.08em solid silver;
   color: blueviolet;
-  width: calc(100% - 0.4em);
   margin: 0.2em;
   text-align: center;
   font-family: Menlo, Monaco, Consolas, Inconsolata, 'Courier New', monospace;
 }   
 
 .playerStats > .rangeHand {
-  flex: 1 1 calc(100% / 13 - 0.4em);
+  flex: calc(100% / 13 - 0.4em);
   outline: 0.08em solid silver;
   color: blue;
-  width: calc(100% - 0.4em);
   margin: 0.2em;
   text-align: center;
   font-family: Menlo, Monaco, Consolas, Inconsolata, 'Courier New', monospace;
