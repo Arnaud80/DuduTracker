@@ -7,17 +7,45 @@ class LastGamePlayers extends Component {
     constructor(props) {
         super();
         this.state = {
-            players: '',
+            players: [],
+            handsQuantity: '',
         }
+    }
+
+    fetchPlayerStats = (playerName) => {
+        fetch(config.DuduTrackerAPI_Players.url + '/' + playerName) // Call API function to retreive last game
+        .then(res => {
+            return res.json(); // Transform the data into json
+        }).then(data => {
+            //console.log("playerName :" + playerName)
+            let players=this.state.players
+            players[playerName]=data.results[0].count
+
+            //console.log(players)
+            this.setState({players : players})
+        })
+        .catch(error => {
+            console.log('Error with API: ' + config.DuduTrackerAPI_LastGame.url);
+            console.log('There is a problem with fetch operation : ' + error.message);
+        })
     }
 
     fetchLastGame() {
         fetch(config.DuduTrackerAPI_LastGame.url) // Call API function to retreive last game
-        .then(results => {
-            return results.json(); // Transform the data into json
+        .then(res => {
+            return res.json(); // Transform the data into json
         }).then(data => {
-            console.log(">>>>" + data.results[0].Players);
-            this.setState({players : data.results[0].Players}); // Update variables of LastGamePlayers
+            let players=[];
+            //console.log(players);
+
+            Object.values(data.results[0].Players).forEach((playerName) => ( 
+                players[playerName]=this.fetchPlayerStats(playerName)
+            ));
+
+            //console.log("Players : ");
+            //console.log(players);
+            
+            //this.setState({players : players}); // Update variables of LastGamePlayers
         })
         .catch(error => {
             console.log('Error with API: ' + config.DuduTrackerAPI_LastGame.url);
@@ -40,9 +68,10 @@ class LastGamePlayers extends Component {
         
         return (
             <div className='LastTablePlayers'>
-                {   Object.entries(players).map((playerName, index) => (
-                    <div className='Player' key={index} onClick={() => this.onClick(playerName[1])} value={playerName[1]}>{playerName[1]}</div>
-                ))
+                {   
+                    Object.entries(players).map((player, index) => (
+                    <div className='Player' key={index} onClick={() => this.onClick(player[0])} value={player[0]}>{player[0]} ({[players[player[0]]]})</div>
+                    ))
                 }
             </div>
         )

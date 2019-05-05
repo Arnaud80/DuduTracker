@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-//import Dropdown from 'react-dropdown'
-//import 'react-dropdown/style.css'
 import Autosuggest from 'react-autosuggest';
+import './react-autosuggest.css'
 
 const config = require('./config');
 
@@ -12,9 +11,7 @@ const getSuggestionValue = suggestion => suggestion.PlayerName;
 
 // Use your imagination to render suggestions.
 const renderSuggestion = suggestion => (
-  <div>
-    {suggestion.PlayerName}
-  </div>
+    suggestion.PlayerName
 );
 
 class PlayerList extends Component {
@@ -45,7 +42,7 @@ class PlayerList extends Component {
   // Autosuggest will call this function every time you need to update suggestions.
   // You already implemented this logic above, so just use it.
   onSuggestionsFetchRequested = ({ value }) => {
-    fetch(config.DuduTrackerAPI_Players.url + '/' + value + '?maxResultat=10') // Call API function to retreive list of players
+    fetch(config.DuduTrackerAPI_Players.url + '?beginby=' + value + '&limit=10') // Call API function to retreive list of players
         .then(results => {
             return results.json(); // Transform the data into json
         }).then(data => {
@@ -80,9 +77,6 @@ class PlayerList extends Component {
 
         console.log("Render PlayerList")
         return (
-            /*<div>
-                <Dropdown options={this.state.players} value='' placeholder={this.state.title} onChange={this.state.onChange} />
-            </div>*/
             <div className='Autosuggest'>
                 <Autosuggest
                     suggestions={suggestions}
