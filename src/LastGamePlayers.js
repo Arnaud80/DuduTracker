@@ -4,67 +4,25 @@ import React, { Component } from 'react'
 const config = require('./config');
 
 class LastGamePlayers extends Component {
-    constructor(props) {
+    constructor() {
         super();
         this.state = {
             players: [],
-            handsQuantity: '',
         }
-    }
-
-    fetchPlayerStats = (playerName) => {
-        fetch(config.DuduTrackerAPI_Players.url + '/' + playerName) // Call API function to retreive last game
-        .then(res => {
-            return res.json(); // Transform the data into json
-        }).then(data => {
-            //console.log("playerName :" + playerName)
-            let players=this.state.players
-            players[playerName]=data.results[0].count
-
-            //console.log(players)
-            this.setState({players : players})
-        })
-        .catch(error => {
-            console.log('Error with API: ' + config.DuduTrackerAPI_LastGame.url);
-            console.log('There is a problem with fetch operation : ' + error.message);
-        })
-    }
-
-    fetchLastGame() {
-        fetch(config.DuduTrackerAPI_LastGame.url) // Call API function to retreive last game
-        .then(res => {
-            return res.json(); // Transform the data into json
-        }).then(data => {
-            let players=[];
-            //console.log(players);
-
-            Object.values(data.results[0].Players).forEach((playerName) => ( 
-                players[playerName]=this.fetchPlayerStats(playerName)
-            ));
-
-            //console.log("Players : ");
-            //console.log(players);
-            
-            //this.setState({players : players}); // Update variables of LastGamePlayers
-        })
-        .catch(error => {
-            console.log('Error with API: ' + config.DuduTrackerAPI_LastGame.url);
-            console.log('There is a problem with fetch operation : ' + error.message);
-        })
     }
 
     onClick = (value) => {
         this.props.changeplayerstats(value);
      };
 
-    componentDidMount(prevProps) {
+    /*componentDidMount() {
         console.log("LastGamePlayer componentDidMount")
         this.fetchLastGame();
-    }
+    }*/
 
     render() {
-        const { players } = this.state
-        console.log("Render LastTablePlayers")
+        const { players } = this.props;
+        console.log("Render LastTablePlayers");
         
         return (
             <div className='LastTablePlayers'>

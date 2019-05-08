@@ -12,6 +12,7 @@ class App extends Component {
     range: config.Constants.range,
     rangeCards: config.Constants.rangeCards,
     hands : [],
+    lastPlayers: [],
   }
 
   // Return a hand on range format, eg. getRangeHand(Kc,9h) return K9o or getRangeHand(9h,Kh) return K9s
@@ -75,6 +76,39 @@ class App extends Component {
         })
     }
 
+fetchPlayerStats = (playerName) => {
+        fetch(config.DuduTrackerAPI_Players.url + '/' + playerName) // Call API function to retreive last game
+        .then(res => {
+            return res.json(); // Transform the data into json
+        }).then(data => {
+            let players=this.state.lastPlayers;
+            players[playerName]=data.results[0].count;
+
+            this.setState({lastPlayers : players})
+        })
+        .catch(error => {
+            console.log('Error with API: ' + config.DuduTrackerAPI_LastGame.url);
+            console.log('There is a problem with fetch operation : ' + error.message);
+        })
+    }
+
+    fetchLastGame() {
+        this.setState({lastPlayers : []})
+        fetch(config.DuduTrackerAPI_LastGame.url) // Call API function to retreive last game
+        .then(res => {
+            return res.json(); // Transform the data into json
+        }).then(data => {
+            Object.values(data.results[0].Players).forEach((playerName) => ( 
+                this.fetchPlayerStats(playerName)
+                ));
+        })
+        .catch(error => {
+            console.log('Error with API: ' + config.DuduTrackerAPI_LastGame.url);
+            console.log('There is a problem with fetch operation : ' + error.message);
+        })
+    }
+
+
   // Arrow fx for binding
   onPlayerChange = (playerName) => {
       this.fetchPlayerHands(playerName);
@@ -83,9 +117,13 @@ class App extends Component {
     componentDidMount() {
         // Listen the socketIO messages sent from the API. 
         const socket = socketIOClient(config.DuduTrackerAPI_Socket.url);
-        socket.on('message', () => {
+        socket.on('newHand', (message) => {
+            console.log("message received : " + message)
             this.fetchPlayerHands(this.state.playerName);
+            this.fetchLastGame();
         })
+
+        this.fetchLastGame();
     }
 
   render() {
@@ -95,6 +133,7 @@ class App extends Component {
             <div className="LeftPanel">
                 <LastGamePlayers
                     changeplayerstats={this.onPlayerChange}
+                    players={this.state.lastPlayers}
                 />
             </div>
             <div className="RightPanel">
