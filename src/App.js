@@ -82,7 +82,8 @@ fetchPlayerStats = (playerName) => {
             return res.json(); // Transform the data into json
         }).then(data => {
             let players=this.state.lastPlayers;
-            players[playerName]=data.results[0].count;
+            //players[playerName]=data.results[0].count;
+            players[playerName]=data.results[0];
 
             this.setState({lastPlayers : players})
         })
