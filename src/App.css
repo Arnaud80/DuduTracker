@@ -21,16 +21,6 @@
   width: calc(100% - 150px);
 }
 
-.PlayerOLD {
-    color: blue;
-    background-color: blanchedalmond;
-    font-size: 0.8em;
-    line-height: 50px;
-    transform: rotate(-10deg);
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
 .Player {
   display: flex;
   flex-direction: column;
