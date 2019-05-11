@@ -15,14 +15,6 @@ class App extends Component {
         lastPlayers: [],
     };
 
-    tmp_state = {
-        playerName: '-',
-        range: config.Constants.range,
-        rangeCards: config.Constants.rangeCards,
-        hands : [],
-        lastPlayers: [],
-    };
-
   // Return a hand on range format, eg. getRangeHand(Kc,9h) return K9o or getRangeHand(9h,Kh) return K9s
     getRangeHand(card1, card2) {
         let tagCard = '' //'s' for suited of 'o' for not suited
