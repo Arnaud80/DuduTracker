@@ -9,7 +9,7 @@
   flex-direction: column;
   justify-content: space-between; 
   background-color: whitesmoke;  
-  width: 150px;
+  width: 200px;
   justify-content: center;
 }
 
@@ -24,8 +24,7 @@
 .Player {
   display: flex;
   flex-direction: column;
-  width: 100px;
-  height: 30px;
+  width: 150px;
   padding: 10px 10px;
   font-family: Helvetica, sans-serif;
   font-size: 0.8em;
@@ -34,7 +33,6 @@
   margin-left: 10px;
   margin-top: 10px;
   margin-bottom: 10px;
-  transform: rotate(-10deg);
 }
 
 .Player:hover {

@@ -1,19 +1,28 @@
 //config.js
 
 const config = {
- DuduTrackerAPI_Players: {
-   url: 'http://localhost:8080/players'
- },
- DuduTrackerAPI_PlayerHands: {
-   url: 'http://localhost:8080/playerHands'
- },
- DuduTrackerAPI_LastGame: {
-   url: 'http://localhost:8080/lastGame'
- },
- DuduTrackerAPI_Socket: {
-   url: 'http://localhost:8081'
- },
- Constants: {
+  DuduTrackerAPI_Players: {
+    url: 'http://localhost:8080/players'
+  },
+  DuduTrackerAPI_PlayerHands: {
+    url: 'http://localhost:8080/playerHands'
+  },
+  DuduTrackerAPI_LastGame: {
+  url: 'http://localhost:8080/lastGame'
+  },
+  DuduTrackerAPI_lastGameWithStats: {
+  url: 'http://localhost:8080/lastGameWithStats'
+  },
+  DuduTrackerAPI_Games: {
+  url: 'http://localhost:8080/Games'
+  },
+  DuduTrackerAPI_Hands: {
+  url: 'http://localhost:8080/Hands'
+  },
+  DuduTrackerAPI_Socket: {
+    url: 'http://localhost:8081'
+  },
+  Constants: {
     range: {
         'AA':0, 'AKs':0, 'AQs':0, 'AJs':0, 'ATs':0, 'A9s':0, 'A8s':0, 'A7s':0, 'A6s':0, 'A5s':0, 'A4s':0, 'A3s':0, 'A2s':0,
         'AKo':0, 'KK':0, 'KQs':0, 'KJs':0, 'KTs':0, 'K9s':0, 'K8s':0, 'K7s':0, 'K6s':0, 'K5s':0, 'K4s':0, 'K3s':0, 'K2s':0,
@@ -29,7 +38,7 @@ const config = {
         'A3o':0, 'K3o':0, 'Q3o':0, 'J3o':0, 'T3o':0, '93o':0, '83o':0, '73o':0, '63o':0, '53o':0, '43o':0, '33':0, '32s':0,
         'A2o':0, 'K2o':0, 'Q2o':0, 'J2o':0, 'T2o':0, '92o':0, '82o':0, '72o':0, '62o':0, '52o':0, '42o':0, '32o':0, '22':0
     },
-    valueCard: {'2':0,'3':1,'4':3,'5':4,'6':5,'7':6,'8':7,'9':8,'T':9,'J':10,'Q':11,'K':12,'A':13},
+    valueCard: {'2':0,'3':1,'4':2,'5':3,'6':4,'7':5,'8':6,'9':7,'T':8,'J':9,'Q':10,'K':11,'A':12},
     rangeCards: [
         'AA', 'AKs', 'AQs', 'AJs', 'ATs', 'A9s', 'A8s', 'A7s', 'A6s', 'A5s', 'A4s', 'A3s', 'A2s',
         'AKo', 'KK', 'KQs', 'KJs', 'KTs', 'K9s', 'K8s', 'K7s', 'K6s', 'K5s', 'K4s', 'K3s', 'K2s',

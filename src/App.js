@@ -7,13 +7,21 @@ import config from './config';
 import socketIOClient from "socket.io-client";
 
 class App extends Component {
-  state = {
-    playerName: '-',
-    range: config.Constants.range,
-    rangeCards: config.Constants.rangeCards,
-    hands : [],
-    lastPlayers: [],
-  }
+    state = {
+        playerName: '-',
+        range: config.Constants.range,
+        rangeCards: config.Constants.rangeCards,
+        hands : [],
+        lastPlayers: [],
+    };
+
+    tmp_state = {
+        playerName: '-',
+        range: config.Constants.range,
+        rangeCards: config.Constants.rangeCards,
+        hands : [],
+        lastPlayers: [],
+    };
 
   // Return a hand on range format, eg. getRangeHand(Kc,9h) return K9o or getRangeHand(9h,Kh) return K9s
     getRangeHand(card1, card2) {
@@ -35,7 +43,7 @@ class App extends Component {
         }
     }
 
-  fetchPlayerHands(playerName) {
+  fetchPlayerRange(playerName) {
         //let range = config.Constants.defaultRange; // Why the constant is modifed ?
         let range = { // I don't use the config constat because the constant is modified
         'AA':0, 'AKs':0, 'AQs':0, 'AJs':0, 'ATs':0, 'A9s':0, 'A8s':0, 'A7s':0, 'A6s':0, 'A5s':0, 'A4s':0, 'A3s':0, 'A2s':0,
@@ -76,55 +84,35 @@ class App extends Component {
         })
     }
 
-fetchPlayerStats = (playerName) => {
-        fetch(config.DuduTrackerAPI_Players.url + '/' + playerName) // Call API function to retreive last game
+    fetchLastGame(gameID) {
+        fetch(config.DuduTrackerAPI_lastGameWithStats.url + '?gameID='+gameID) // Call API function to retreive last game
         .then(res => {
             return res.json(); // Transform the data into json
         }).then(data => {
-            let players=this.state.lastPlayers;
-            //players[playerName]=data.results[0].count;
-            players[playerName]=data.results[0];
-
-            this.setState({lastPlayers : players})
+            this.setState({lastPlayers: data.results})
         })
         .catch(error => {
+            console.log(error);
             console.log('Error with API: ' + config.DuduTrackerAPI_LastGame.url);
             console.log('There is a problem with fetch operation : ' + error.message);
         })
     }
-
-    fetchLastGame() {
-        this.setState({lastPlayers : []})
-        fetch(config.DuduTrackerAPI_LastGame.url) // Call API function to retreive last game
-        .then(res => {
-            return res.json(); // Transform the data into json
-        }).then(data => {
-            Object.values(data.results[0].Players).forEach((playerName) => ( 
-                this.fetchPlayerStats(playerName)
-                ));
-        })
-        .catch(error => {
-            console.log('Error with API: ' + config.DuduTrackerAPI_LastGame.url);
-            console.log('There is a problem with fetch operation : ' + error.message);
-        })
-    }
-
 
   // Arrow fx for binding
   onPlayerChange = (playerName) => {
-      this.fetchPlayerHands(playerName);
+      this.fetchPlayerRange(playerName);
   }
 
     componentDidMount() {
         // Listen the socketIO messages sent from the API. 
         const socket = socketIOClient(config.DuduTrackerAPI_Socket.url);
-        socket.on('newHand', (message) => {
+        socket.on('newGame', (message) => {
             console.log("message received : " + message)
-            this.fetchPlayerHands(this.state.playerName);
-            this.fetchLastGame();
+            this.fetchPlayerRange(this.state.playerName);
+            this.fetchLastGame(message);
         })
 
-        this.fetchLastGame();
+        this.fetchLastGame('105553169121056');
     }
 
   render() {
