@@ -36,8 +36,12 @@ class LastGamePlayers extends Component {
             <div className='LastTablePlayers'>
                 {   
                     Object.entries(players).map((player, index) => (
-                    <div className='Player' key={index} value={players[index].PlayerName}>
-                        <span onClick={() => this.onClick(players[index].PlayerName)}>{players[index].PlayerName} - ({players[index].Count})</span>
+                    <div className='PlayerBlock' key={index} value={players[index].PlayerName}>
+                        <span className='PlayerName' onClick={() => this.onClick(players[index].PlayerName)}>{players[index].PlayerName} - ({players[index].Count})</span>
+                        <span>
+                            <div className='VPIP' title={players[index].VPIP}>VPIP:{(players[index].VPIP/players[index].Count*100).toFixed(1)}%</div>
+                            <div className='PFR' title={players[index].PFR}>PFR:{(players[index].PFR/players[index].Count*100).toFixed(1)}%</div>
+                        </span>
                         <HandCards
                             hand1={this.getHand(players[index].Hand, 1)}
                             hand2={this.getHand(players[index].Hand, 2)}

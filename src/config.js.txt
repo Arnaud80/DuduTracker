@@ -1,4 +1,5 @@
-//config.js
+// rename this file as config.js and update values
+// 
 
 const config = {
   DuduTrackerAPI_Players: {

@@ -28,7 +28,7 @@
 .playerStats > .SelectedUser {
   font-size: 2em;
   flex: 1 1 1;
-  color: blueviolet;
+  color: rgb(45, 11, 77);
   width: calc(100% - 0.4em);
   margin: 0.2em;
   text-align: center;

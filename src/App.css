@@ -16,12 +16,26 @@
 .RightPanel {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  background-color: orchid;  
+  align-items: center;  
   width: calc(100% - 150px);
+
+  /* fallback */
+	background-color:#063053;
+	/* chrome 2+, safari 4+; multiple color stops */
+	background-image:-webkit-gradient(linear, left bottom, right top, color-stop(0.32, #50494c), color-stop(0.66, #998d92), color-stop(0.83, #5c7c99));
+	/* chrome 10+, safari 5.1+ */
+	background-image:-webkit-linear-gradient(45deg, #50494c, #998d92, #5c7c99);
+	/* firefox; multiple color stops */
+	background-image:-moz-linear-gradient(45deg, #50494c, #998d92, #5c7c99);
+	/* ie10 */
+	background-image: -ms-linear-gradient(45deg, #50494c 0%, #998d92 100%);
+	/* opera 11.1 */
+	background-image: -o-linear-gradient(45deg, #50494c, #998d92);
+	/* The "standard" */
+	background-image: linear-gradient(45deg, #50494c, #998d92);
 }
 
-.Player {
+.PlayerBlock {
   display: flex;
   flex-direction: column;
   width: 150px;
@@ -33,9 +47,33 @@
   margin-left: 10px;
   margin-top: 10px;
   margin-bottom: 10px;
+
+  /* fallback */
+	background-color:#063053;
+	/* chrome 2+, safari 4+; multiple color stops */
+	background-image:-webkit-gradient(linear, left bottom, right top, color-stop(0.32, #067753), color-stop(0.66, #0cc288), color-stop(0.83, #5c7c99));
+	/* chrome 10+, safari 5.1+ */
+	background-image:-webkit-linear-gradient(45deg, #067753, #0cc288, #5c7c99);
+	/* firefox; multiple color stops */
+	background-image:-moz-linear-gradient(45deg, #067753, #0cc288, #5c7c99);
+	/* ie10 */
+	background-image: -ms-linear-gradient(45deg, #067753 0%, #0cc288 100%);
+	/* opera 11.1 */
+	background-image: -o-linear-gradient(45deg, #067753, #0cc288);
+	/* The "standard" */
+	background-image: linear-gradient(45deg, #067753, #0cc288);
 }
 
-.Player:hover {
+.PlayerName:hover {
+  color:red;
+  cursor: pointer;
+}
+
+.VPIP:hover {
+  color:red;
+}
+
+.PFR:hover {
   color:red;
 }
 

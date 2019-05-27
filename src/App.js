@@ -5,6 +5,7 @@ import PlayerStats from './PlayerStats'
 import LastGamePlayers from './LastGamePlayers'
 import config from './config';
 import socketIOClient from "socket.io-client";
+import Cookies from 'universal-cookie';
 
 class App extends Component {
     state = {
@@ -96,20 +97,24 @@ class App extends Component {
   }
 
     componentDidMount() {
+        const cookies = new Cookies();
+        
         // Listen the socketIO messages sent from the API. 
         const socket = socketIOClient(config.DuduTrackerAPI_Socket.url);
         socket.on('newGame', (message) => {
             console.log("message received : " + message)
             this.fetchPlayerRange(this.state.playerName);
             this.fetchLastGame(message);
+            cookies.set('lastGameID', message, { path: '/' });
         })
 
-        this.fetchLastGame('105553169121056');
+        let lastGameID=cookies.get('lastGameID');
+        this.fetchLastGame(lastGameID);
     }
 
   render() {
       console.log("Render App")
-      return (
+      return (    
          <div className="App">
             <div className="LeftPanel">
                 <LastGamePlayers

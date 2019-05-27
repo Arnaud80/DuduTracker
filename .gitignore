@@ -23,3 +23,6 @@ yarn-debug.log*
 yarn-error.log*
 /.project
 public/img/allcards.xcf
+src/config.js
+.gitignore
+src/config.js
