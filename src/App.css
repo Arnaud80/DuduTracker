@@ -38,15 +38,16 @@
 .PlayerBlock {
   display: flex;
   flex-direction: column;
-  width: 150px;
-  padding: 10px 10px;
+  width: 175px;
+  padding: 2px 2px;
   font-family: Helvetica, sans-serif;
-  font-size: 0.8em;
+  font-size: 0.9em;
   border: 1px solid #aaa;
   border-radius: 4px;
-  margin-left: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 
   /* fallback */
 	background-color:#063053;
@@ -69,11 +70,32 @@
   cursor: pointer;
 }
 
+.VPIP {
+  font-size: 0.9em;
+}
+
+.PFR {
+  font-size: 0.9em;
+}
+
+._3BET {
+  font-size: 0.9em;
+}
+
+.PlayerName:hover {
+  color:red;
+  cursor: pointer;
+}
+
 .VPIP:hover {
   color:red;
 }
 
 .PFR:hover {
+  color:red;
+}
+
+._3BET:hover {
   color:red;
 }
 
